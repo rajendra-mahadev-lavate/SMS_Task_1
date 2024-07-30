@@ -1,0 +1,68 @@
+{
+  "Student": [
+    {
+      "studentId": 1,
+      "studentName": "Rajendra"
+    },
+    {
+      "studentId": 2,
+      "studentName": "Amit"
+    },
+    {
+      "studentId": 3,
+      "studentName": "Jafar"
+    },
+    {
+      "studentId": 4,
+      "studentName": "Rohit"
+    }
+  ],
+  "Teacher": [
+    {
+      "teacherId": 1,
+      "teacherName": "Rajesh"
+    },
+    {
+      "teacherId": 2,
+      "teacherName": "Yogesh"
+    },
+    {
+      "teacherId": 3,
+      "teacherName": "Suraj"
+    },
+    {
+      "teacherId": 4,
+      "teacherName": "Paddy"
+    }
+  ],
+  "MarksList": [
+    {
+      "studentId": 1,
+      "studentName": "Amit",
+      "teacherName": "Paddy",
+      "subject": "Maths",
+      "marks": 79
+    },
+    {
+      "studentId": 2,
+      "studentName": "Jafar",
+      "teacherName": "Rajesh",
+      "subject": "Marathi",
+      "marks": 89
+    },
+    {
+      "studentId": 3,
+      "studentName": "Rajendra",
+      "teacherName": "Yogesh",
+      "subject": "DSA",
+      "marks": 70
+    },
+    {
+      "studentId": 4,
+      "studentName": "Rohit",
+      "teacherName": "Suraj",
+      "subject": "Hindi",
+      "marks": 86
+    }
+  ]
+}
