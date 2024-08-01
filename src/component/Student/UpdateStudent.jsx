@@ -1,6 +1,7 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const UpdateStudent = () => {
   const { id } = useParams();
@@ -33,7 +34,6 @@ const UpdateStudent = () => {
 
     if (window.confirm("Are you sure you want to update this record?")) {
       try {
-        // Convert studentId to number if it is a string
         const studentData = { studentName: name }; // Ensure this matches your backend property
         await Axios.put(
           `http://localhost:8080/api/students/${id}`,
@@ -54,10 +54,10 @@ const UpdateStudent = () => {
 
       <form onSubmit={updateStudent}>
         <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="row bg-dark p-4 text-light">
-                <div className="col-md-12">
+          <div className="row justify-content-center">
+            <div className="col-lg-6 col-md-8 col-sm-10">
+              <div className="card bg-dark text-light">
+                <div className="card-body">
                   <div className="form-group my-3">
                     <label htmlFor="studentName">Enter Your Name</label>
                     <input
@@ -69,7 +69,7 @@ const UpdateStudent = () => {
                     />
                   </div>
 
-                  <div className="form-group my-3 m-auto text-center">
+                  <div className="form-group my-3 text-center">
                     <button type="submit" className="btn btn-outline-light">
                       Update
                     </button>

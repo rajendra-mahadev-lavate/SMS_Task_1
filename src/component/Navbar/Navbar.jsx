@@ -7,10 +7,14 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg bg-dark text-light fw-bold text-center">
         <button
           className="navbar-toggler"
+          type="button"
           data-bs-toggle="collapse"
           data-bs-target="#nav"
+          aria-controls="nav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-          <span className="navbar navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
 
         <div className="collapse navbar-collapse" id="nav">

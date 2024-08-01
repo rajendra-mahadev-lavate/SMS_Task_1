@@ -3,6 +3,7 @@ import Axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const TeacherList = () => {
   const [data, setData] = useState([]);
@@ -40,37 +41,39 @@ const TeacherList = () => {
       <h1 className="text-center bg-dark text-light p-4 my-3 fw-bold">
         Teacher List
       </h1>
-      <table className="table table-bordered table-responsive table-hover">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {data.map((val) => (
-            <tr key={val.teacherId}>
-              <td>{val.teacherId}</td>
-              <td>{val.teacherName}</td>
-              <td>
-                <button
-                  className="btn btn-outline-danger mx-4"
-                  onClick={() => deleteRecord(val.teacherId)}
-                >
-                  <MdDelete />
-                </button>
-                <button className="btn btn-outline-info">
-                  <NavLink to={`/edit-teacher/${val.teacherId}`}>
-                    <FaEdit />
-                  </NavLink>
-                </button>
-              </td>
+      <div className="table-responsive">
+        <table className="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {data.map((val) => (
+              <tr key={val.teacherId}>
+                <td>{val.teacherId}</td>
+                <td>{val.teacherName}</td>
+                <td>
+                  <button
+                    className="btn btn-outline-danger mx-2"
+                    onClick={() => deleteRecord(val.teacherId)}
+                  >
+                    <MdDelete />
+                  </button>
+                  <NavLink to={`/edit-teacher/${val.teacherId}`}>
+                    <button className="btn btn-outline-info">
+                      <FaEdit />
+                    </button>
+                  </NavLink>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

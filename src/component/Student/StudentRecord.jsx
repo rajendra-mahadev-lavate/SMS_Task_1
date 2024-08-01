@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const StudentRecord = () => {
   const [data, setData] = useState([]);
@@ -35,44 +36,44 @@ const StudentRecord = () => {
   };
 
   return (
-    <>
+    <div className="container">
       <h1 className="text-center bg-dark text-light p-4 my-3 fw-bold">
         Student Records
       </h1>
-      <table className="table table-bordered table-responsive table-hover">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((val) => (
-            <tr key={val.studentId}>
-              <td>{val.studentId}</td>
-              <td>{val.studentName}</td>
-              <td>
-                <button
-                  className="btn btn-outline-danger mx-4"
-                  onClick={() => deleteRecord(val.studentId)}
-                >
-                  <MdDelete />
-                </button>
-                <button className="btn btn-outline-info">
+      <div className="table-responsive">
+        <table className="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((val) => (
+              <tr key={val.studentId}>
+                <td>{val.studentId}</td>
+                <td>{val.studentName}</td>
+                <td>
+                  <button
+                    className="btn btn-outline-danger mx-1"
+                    onClick={() => deleteRecord(val.studentId)}
+                  >
+                    <MdDelete />
+                  </button>
                   <NavLink
                     to={`/edit-student/${val.studentId}`}
-                    className="text-light"
+                    className="btn btn-outline-info mx-1"
                   >
                     <FaEdit />
                   </NavLink>
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 

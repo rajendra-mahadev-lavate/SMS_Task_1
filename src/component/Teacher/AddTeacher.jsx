@@ -1,6 +1,7 @@
 import Axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const AddTeacher = () => {
   const [name, setName] = useState("");
@@ -31,10 +32,10 @@ const AddTeacher = () => {
 
       <form onSubmit={teacherRecord}>
         <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="row bg-dark p-4 text-light">
-                <div className="col-md-12">
+          <div className="row justify-content-center">
+            <div className="col-lg-6 col-md-8 col-sm-10">
+              <div className="card bg-dark text-light">
+                <div className="card-body">
                   <div className="form-group my-3">
                     <label htmlFor="teacherName">Enter Teacher's Name</label>
                     <input
@@ -46,7 +47,7 @@ const AddTeacher = () => {
                     />
                   </div>
 
-                  <div className="form-group my-3 m-auto text-center">
+                  <div className="form-group my-3 text-center">
                     <button type="submit" className="btn btn-outline-light">
                       Submit
                     </button>

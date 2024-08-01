@@ -1,6 +1,7 @@
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const UpdateTeacher = () => {
   const [name, setName] = useState("");
@@ -53,12 +54,12 @@ const UpdateTeacher = () => {
 
       <form onSubmit={updateRecord}>
         <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="row bg-dark p-4 text-light">
-                <div className="col-md-12">
+          <div className="row justify-content-center">
+            <div className="col-lg-6 col-md-8 col-sm-10">
+              <div className="card bg-dark text-light">
+                <div className="card-body">
                   <div className="form-group my-3">
-                    <label htmlFor="teacherName">Enter Your Name</label>
+                    <label htmlFor="teacherName">Enter Teacher's Name</label>
                     <input
                       type="text"
                       id="teacherName"
@@ -68,7 +69,7 @@ const UpdateTeacher = () => {
                     />
                   </div>
 
-                  <div className="form-group my-3 m-auto text-center">
+                  <div className="form-group my-3 text-center">
                     <button type="submit" className="btn btn-outline-light">
                       Update
                     </button>
