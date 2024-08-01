@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
@@ -12,21 +12,25 @@ const StudentRecord = () => {
   }, []);
 
   const loadData = async () => {
-    const result = await Axios.get("http://localhost:3000/Student");
-    setData(result.data);
+    try {
+      const result = await Axios.get("http://localhost:8080/api/students");
+      setData(result.data);
+    } catch (error) {
+      console.error("Error loading data", error);
+      alert("Error loading student records. Please try again.");
+    }
   };
 
-  // console.log(data);
-
   const deleteRecord = async (id) => {
-    // alert(id);
-
-    if (window.confirm("Are You Shure!!")) {
-      alert("Successfully Deleted...!");
-      const result = data.filter((val) => val.id !== id);
-      setData(result);
-
-      await Axios.delete(`http://localhost:3000/Student/${id}`);
+    if (window.confirm("Are you sure you want to delete this record?")) {
+      try {
+        await Axios.delete(`http://localhost:8080/api/students/${id}`);
+        setData(data.filter((val) => val.studentId !== id));
+        alert("Successfully Deleted!");
+      } catch (error) {
+        console.error("Error deleting record", error);
+        alert("Error deleting record. Please try again.");
+      }
     }
   };
 
@@ -43,10 +47,9 @@ const StudentRecord = () => {
             <th>Action</th>
           </tr>
         </thead>
-
         <tbody>
-          {data.map((val, index) => (
-            <tr key={index}>
+          {data.map((val) => (
+            <tr key={val.studentId}>
               <td>{val.studentId}</td>
               <td>{val.studentName}</td>
               <td>
@@ -57,8 +60,11 @@ const StudentRecord = () => {
                   <MdDelete />
                 </button>
                 <button className="btn btn-outline-info">
-                  <NavLink to={`/edit-student/${val.studentId}`}>
-                    <FaEdit />{" "}
+                  <NavLink
+                    to={`/edit-student/${val.studentId}`}
+                    className="text-light"
+                  >
+                    <FaEdit />
                   </NavLink>
                 </button>
               </td>

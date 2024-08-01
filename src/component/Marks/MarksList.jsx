@@ -1,15 +1,35 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+
 const MarksList = () => {
   const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 10;
 
   useEffect(() => {
     loadData();
   }, []);
 
   const loadData = async () => {
-    const result = await Axios.get("http://localhost:3000/MarksList");
+    const result = await Axios.get("http://localhost:8080/marks");
     setData(result.data);
+  };
+
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
+  const totalPages = Math.ceil(data.length / recordsPerPage);
+
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   return (
@@ -29,7 +49,7 @@ const MarksList = () => {
         </thead>
 
         <tbody>
-          {data.map((val, index) => (
+          {currentRecords.map((val, index) => (
             <tr key={index}>
               <td>{val.studentId}</td>
               <td>{val.studentName}</td>
@@ -40,6 +60,23 @@ const MarksList = () => {
           ))}
         </tbody>
       </table>
+      <div className="d-flex justify-content-between">
+        <button
+          className="btn btn-primary"
+          onClick={prevPage}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span>Page {currentPage} of {totalPages}</span>
+        <button
+          className="btn btn-primary"
+          onClick={nextPage}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </>
   );
 };

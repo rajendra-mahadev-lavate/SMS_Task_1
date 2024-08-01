@@ -12,25 +12,33 @@ const TeacherList = () => {
   }, []);
 
   const loadData = async () => {
-    const result = await Axios.get("http://localhost:3000/Teacher");
-    setData(result.data);
+    try {
+      const result = await Axios.get("http://localhost:8080/api/teachers");
+      setData(result.data);
+    } catch (error) {
+      console.error("Error loading data", error);
+      alert("Error loading data. Please try again.");
+    }
   };
 
   const deleteRecord = async (id) => {
-    // alert(id);
-
-    if (window.confirm("Are You Shure!!")) {
-      alert("Successfully Deleted...!");
-      const result = data.filter((val) => val.id !== id);
-      setData(result);
-
-      await Axios.delete(`http://localhost:3000/Teacher/${id}`);
+    if (window.confirm("Are you sure you want to delete this record?")) {
+      try {
+        await Axios.delete(`http://localhost:8080/api/teachers/${id}`);
+        // Remove the deleted record from the state
+        setData(data.filter((val) => val.teacherId !== id));
+        alert("Successfully Deleted!");
+      } catch (error) {
+        console.error("Error deleting record", error);
+        alert("Error deleting record. Please try again.");
+      }
     }
   };
+
   return (
     <>
       <h1 className="text-center bg-dark text-light p-4 my-3 fw-bold">
-        Techer List
+        Teacher List
       </h1>
       <table className="table table-bordered table-responsive table-hover">
         <thead>
@@ -42,8 +50,8 @@ const TeacherList = () => {
         </thead>
 
         <tbody>
-          {data.map((val, index) => (
-            <tr key={index}>
+          {data.map((val) => (
+            <tr key={val.teacherId}>
               <td>{val.teacherId}</td>
               <td>{val.teacherName}</td>
               <td>
@@ -55,7 +63,7 @@ const TeacherList = () => {
                 </button>
                 <button className="btn btn-outline-info">
                   <NavLink to={`/edit-teacher/${val.teacherId}`}>
-                    <FaEdit />{" "}
+                    <FaEdit />
                   </NavLink>
                 </button>
               </td>

@@ -3,30 +3,48 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateStudent = () => {
-  const { studentId } = useParams();
+  const { id } = useParams();
   const [name, setName] = useState("");
-  const nav = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await Axios.get(
-        `http://localhost:3000/Student/${studentId}`
-      );
-      setName(result.data.name);
+      try {
+        const result = await Axios.get(
+          `http://localhost:8080/api/students/${Number(id)}`
+        );
+        setName(result.data.studentName); // Ensure this matches your backend property
+      } catch (error) {
+        console.error("Error fetching student data", error);
+        alert("Error fetching student data. Please try again.");
+      }
     };
-    
+
     fetchData();
-  }, [studentId]);
+  }, [id]);
 
   const updateStudent = async (e) => {
     e.preventDefault();
-    if (window.confirm("Are you sure?")) {
-      alert("Successfully Updated");
 
-      const studentData = { name };
-      await Axios.put(`http://localhost:3000/Student/${studentId}`, studentData);
+    if (!name) {
+      alert("Name cannot be empty.");
+      return;
+    }
 
-      nav("/userData");
+    if (window.confirm("Are you sure you want to update this record?")) {
+      try {
+        // Convert studentId to number if it is a string
+        const studentData = { studentName: name }; // Ensure this matches your backend property
+        await Axios.put(
+          `http://localhost:8080/api/students/${id}`,
+          studentData
+        );
+        alert("Successfully Updated");
+        navigate("/student-record"); // Update this to the correct route if necessary
+      } catch (error) {
+        console.error("Error updating student data", error);
+        alert("Error updating student data. Please try again.");
+      }
     }
   };
 
